@@ -1,7 +1,9 @@
 package com.demo.authdemo.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,20 +14,26 @@ import com.demo.authdemo.entity.Malzeme;
 import com.demo.authdemo.service.MalzemeService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/malzemeler")
 public class MalzemeController {
 
     @Autowired
     private MalzemeService malzemeService;
 
-    @GetMapping("/malzeme/{barkod_no}")
-    public ResponseEntity<Malzeme> getMalzemeByBarkodNo(@PathVariable Integer barkod_no) {
-        Malzeme malzeme = malzemeService.getMalzemeByBarkodNo(barkod_no);
-        if (malzeme != null) {
-            return ResponseEntity.ok(malzeme);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    @GetMapping
+    public ResponseEntity<List<Malzeme>> malzemeleriGetir() {
+        List<Malzeme> malzemeler = malzemeService.malzemeleriGetir();
+        return ResponseEntity.ok(malzemeler);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Malzeme> malzemeyiGetir(@PathVariable Integer id) {
+        Optional<Malzeme> malzeme = malzemeService.malzemeyiIdIleGetir(id);
+        return malzeme.map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
+
+
+
 }
 
