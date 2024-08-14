@@ -18,22 +18,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
-@Table(name = "sub_locations")
+@Data 
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubLocation {
+@Table(name="rooms")
 
+public class Room {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 
-    private String name;
+    private String odaNum;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "location_id")
-    private Location location;
+    @JoinColumn(name= "sub_id")
+    private SubLocation subLocation;
 
-    @OneToMany(mappedBy = "subLocation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Room> rooms = new HashSet<>();
+    @OneToMany(mappedBy= "room", cascade= CascadeType.ALL,orphanRemoval= true, fetch=FetchType.LAZY)
+    private Set<Material> materials = new HashSet<>();
+    
+
+
 }
