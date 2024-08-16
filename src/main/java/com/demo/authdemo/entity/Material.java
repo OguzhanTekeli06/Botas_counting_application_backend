@@ -16,15 +16,22 @@ import lombok.Data;
 
 public class Material {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-     
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long matId;
 
     private Long barkodNo;
 
     private Boolean bulduMu = false;
 
-    @ManyToOne(fetch= FetchType.EAGER)
-    @JoinColumn(name="id")   // Bu, Room tablosundaki id ile ilişkili
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id")  // Room tablosundaki id ile ilişkili
     private Room room;
+
+    // Yeni Alanlar
+    private String model;
+    private String marka;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "per_id", referencedColumnName = "per_id")
+    private Personel personel;  // Yeni ilişki
 }

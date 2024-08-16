@@ -36,4 +36,22 @@ public class MaterialService {
             throw new RuntimeException("Material not found with barcode: " + barkodNo);
         }
     }
+
+    public Material getMaterialDetailsByBarkodNo(Long barkodNo) {
+        return materialRepository.findByBarkodNoWithDetails(barkodNo)
+                .orElseThrow(() -> new RuntimeException("Material not found with barcode: " + barkodNo));
+    }
+
+    public int getFoundMaterialCountByPersonelAndRoom(Long perId, Long roomId) {
+        return materialRepository.countFoundMaterialsByPersonelAndRoom(perId, roomId);
+    }
+
+    public int getNotFoundMaterialCountByPersonelAndRoom(Long perId, Long roomId) {
+        return materialRepository.countNotFoundMaterialsByPersonelAndRoom(perId, roomId);
+    }
+
+
+
+
+
 }

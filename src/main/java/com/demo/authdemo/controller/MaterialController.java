@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demo.authdemo.entity.Material;
 import com.demo.authdemo.service.MaterialService;
 
 @RestController
@@ -41,4 +42,11 @@ public class MaterialController {
         materialService.updateMaterialStatus(barkodNo, found);
         return ResponseEntity.ok("Material status updated");
     }
+
+    @GetMapping("/details/{barkodNo}")
+    public ResponseEntity<Material> getMaterialDetails(@PathVariable Long barkodNo) {
+        Material material = materialService.getMaterialDetailsByBarkodNo(barkodNo);
+        return ResponseEntity.ok(material);
+    }
+
 }

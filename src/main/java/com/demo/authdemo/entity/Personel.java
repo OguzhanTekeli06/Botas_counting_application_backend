@@ -1,8 +1,7 @@
 package com.demo.authdemo.entity;
 
-import java.util.HashSet;
 import java.util.Set;
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,24 +15,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
-@Data 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="rooms")
+@Table(name = "personel")
+public class Personel {
 
-public class Room {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long per_id;
 
-    private String odaNum;
+    private String sicilNo;
+
+    private String adSoyad;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "sub_id")
-    private SubLocation subLocation;
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    private Room room;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Material> materials = new HashSet<>();
+    @OneToMany(mappedBy = "personel", fetch = FetchType.EAGER)
+    private Set<Material> materials;  // Yeni ilişki
 }
