@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.demo.authdemo.entity.Material;
 import com.demo.authdemo.entity.Personel;
+import com.demo.authdemo.entity.Room;
 import com.demo.authdemo.repository.MaterialRepository;
 import com.demo.authdemo.repository.PersonelRepository;
 
@@ -15,18 +16,23 @@ public class PersonelService {
 
     @Autowired
     private PersonelRepository personelRepository;
+    
     @Autowired
     private MaterialRepository materialRepository;
 
     public List<Personel> searchPersonel(String query) {
         return personelRepository.findBySicilNoOrAdSoyadContainingIgnoreCase(query, query);
     }
-    
-    public List<Personel> SearchPersonel(String query) {
-        return personelRepository.searchPersonelWithRoom(query);
-    }
-       public List<Material> getMaterialsByPersonel(Long perId) {
+
+    public List<Material> getMaterialsByPersonel(Long perId) {
         return materialRepository.findByPersonelPerId(perId);
     }
     
+    public int countMaterialsInOtherRoomsByPersonel(Long perId, Long roomId) {
+        return materialRepository.countMaterialsInOtherRoomsByPersonel(perId, roomId);
+    }
+
+    public List<Room> getRoomsByPersonelId(Long perId) {
+        return personelRepository.findRoomsByPersonelId(perId);
+    }
 }

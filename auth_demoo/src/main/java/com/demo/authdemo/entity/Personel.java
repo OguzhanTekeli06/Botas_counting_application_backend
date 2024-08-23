@@ -7,13 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Set;
-
 
 @Entity
 @Data
@@ -27,13 +24,9 @@ public class Personel {
     private Long per_id;
 
     private String sicilNo;
-
     private String adSoyad;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id", referencedColumnName = "id")
     private Room room;
-
-        @OneToMany(mappedBy = "personel", fetch = FetchType.EAGER)
-    private Set<Material> materials;  // Yeni ilişki
 }

@@ -20,15 +20,14 @@ public class Material {
 
     private Boolean bulduMu = false;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")  // Room tablosundaki id ile ilişkili
-    private Room room;
-
-    // Yeni Alanlar
     private String model;
     private String marka;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "per_id", referencedColumnName = "per_id")
-    private Personel personel;  // Yeni ilişki
+    private Personel personel;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    private Room room;
 }
